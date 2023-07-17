@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>RickMorti-dex</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+
+        <!-- Styling for htmx indicators -->
+        <style>
+            .htmx-indicator{
+                display:none;
+            }
+            .htmx-request .my-indicator{
+                display:inline;
+            }
+            .htmx-request.my-indicator{
+                display:inline;
+            }
+        </style>
+
+
+    </head>
+    <body class="bg-gray-800 flex-1 w-full transition-all">
+        <nav class="md:text-xl text-white bg-black">
+            <ul class="flex gap-5 w-full justify-between md:justify-end md:pr-4">
+                <li class="p-4 hover:bg-gray-300 hover:text-black"><a href="#">Home</a></li>
+                <li class="p-4 hover:bg-gray-300 hover:text-black"><a href="#">Services</a></li>
+                <li class="p-4 hover:bg-gray-300 hover:text-black"><a href="#">About</a></li>
+                <li class="p-4 hover:bg-gray-300 hover:text-black"><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- Title Banner -->
+        <div class="p-16 md:p-24 text-2xl md:text-8xl bg-gray-400 font-bold text-center text-white bg-no-repeat bg-cover bg-center bg-blend-multiply" style="background-image: url('https://pbs.twimg.com/profile_banners/729468343/1660227065/1500x500');">The RickMorti-dex</div>
+
+
+        <!-- Search Section -->
+        <div class="md:flex bg-gray-900 p-5 space-y-2">
+            <h1 class="font-bold text-xl md:text-2xl text-white text-center my-auto mx-auto"> Search for a character </h1>
+            <input 
+                class="rounded-2xl w-full md:h-12 lg:w-1/2 text-center font-extrabold"
+                id="search_input" 
+                name="search_input" 
+                type="text" 
+                placeholder="Enter search here"
+            >
+        </div>
+
+        <!-- Data Container Section -->
+        <div
+            class="p-8 flex flex-col md:flex-row md:flex-wrap md:gap-8 justify-center space-y-10"
+            id="containerThings"
+            hx-get="http://127.0.0.1:8000/data"
+            hx-trigger="
+                load,
+                keyup change delay:400ms from:#search_input
+            "
+            hx-swap="innerHTML"
+            hx-include="#search_input"
+            hx-indicator="#indicator"
+            hx-on="htmx:beforeRequest: htmx.find('#error').innerHTML='';htmx.find('#containerThings').innerHTML=''"
+
+        >
+
+        </div>
+        <!-- Indicator Section -->
+        <div id="indicator" class="htmx-indicator my-indicator flex justify-center p-16 w-full">
+            <img  class="rounded-full w-32 h-32 md:w-64 md:h-64 mx-auto " src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExemI1YTZ5ZnkzYjl2YXUydWdlY3RybzBjeGRmdTk0cnE5enZrOGphNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKTiQWuZ0cOmAkE/giphy.gif" />
+        </div>
+
+        <!-- Error Section -->
+        <div 
+            id="error"
+            class="flex justify-center p-16"
+            >
+        </div>
+
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
